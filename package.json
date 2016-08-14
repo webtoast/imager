@@ -19,12 +19,12 @@
   },
   "homepage": "https://github.com/webtoast/chef",
   "devDependencies": {
-    "electron-prebuilt": "^1.2.0",
-    "electron-rebuild": "^1.2.0",
-    "electron-reload": "^1.0.2"
+    "electron-prebuilt": "1.2.0",
+    "electron-rebuild": "1.2.0",
+    "electron-reload": "1.0.2"
   },
   "dependencies": {
-    "imagemin": "^5.2.2",
-    "imagemin-pngquant": "^5.0.0"
+    "imagemin": "5.2.2",
+    "imagemin-pngquant": "5.0.0"
   }
 }
