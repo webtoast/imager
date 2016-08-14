@@ -9,6 +9,8 @@
   "license": "",
   "main": "background.js",
   "dependencies": {
-    "fs-jetpack": "^0.9.0"
+    "fs-jetpack": "0.9.0",
+    "imagemin": "5.2.2",
+    "imagemin-pngquant": "5.0.0"
   }
 }
