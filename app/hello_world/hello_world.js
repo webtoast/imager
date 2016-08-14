@@ -1,5 +1,5 @@
 export var greet = function () {
-    return 'Hello World!';
+    return 'Drag files here to optimize';
 };
 
 export var bye = function () {
