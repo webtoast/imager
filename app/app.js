@@ -39,6 +39,7 @@ class FileReport {
         this.fileList = e.dataTransfer.files;
         this.savePath = new String();
         this.arrayofFiles = new Array();
+        this.saveFolder = '/OPTIMIZED/';
 
         // kick off the fun
         this.init();
@@ -63,10 +64,12 @@ class FileReport {
     }
 
     getSavePath(fullPath) {
+        var tempPath = new String();
         this.pathArray = fullPath.split('/');
+        //remove the last element which is the file
         this.pathArray.pop();
-        this.savePath = this.pathArray.join('/');
-        this.savePath += '/chef/';
+        tempPath = this.pathArray.join('/');
+        this.savePath = tempPath + this.saveFolder;
         console.log("The path to save to = " + this.savePath);
     }
 
