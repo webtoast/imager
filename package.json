@@ -48,5 +48,9 @@
     "start": "gulp start",
     "pretest": "gulp build --env=test",
     "test": "electron-mocha build --renderer"
+  },
+  "dependencies": {
+    "imagemin": "5.2.2",
+    "imagemin-pngquant": "5.0.0"
   }
 }
