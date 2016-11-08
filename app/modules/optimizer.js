@@ -13,9 +13,6 @@ export default class Optimizer {
     }
 
     init() {
-        // for (let f of unoptimizedFiles) {
-        //   console.log('File(s) you dragged here: ', f.path)
-        // }
 
         // just grab the fist element in the array
         // to determine the path to save to
