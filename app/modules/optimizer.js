@@ -19,6 +19,12 @@ export default class Optimizer {
         this.getSavePath(this.fileList[0].path);
         this.getFilesArray(this.fileList[0].path);
 
+        console.log(this.fileList);
+
+        for (let item of this.fileList) {
+            console.log(item);
+        }
+
         //console.log(this.fileList[0].path.indexOf('.'));
 
         this.optimizeImages();
@@ -55,7 +61,7 @@ export default class Optimizer {
     }
 
     optimizeImages() {
-        imagemin(this.arrayofFiles, this.savePath, {
+        imagemin(`/Users/brad/Desktop/mss/fuel/images/**/*.{jpg,png}`, this.savePath, {
             plugins: [
                 imageminPngquant({quality: '65-80'})
             ]
