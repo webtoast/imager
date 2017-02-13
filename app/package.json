@@ -1,0 +1,16 @@
+{
+  "name": "chef",
+  "productName": "Chef",
+  "description": "Image optimization tool",
+  "version": "0.0.0",
+  "author": "",
+  "copyright": "",
+  "homepage": "https://github.com/webtoast/chef",
+  "license": "",
+  "main": "background.js",
+  "dependencies": {
+    "fs-jetpack": "0.9.0",
+    "imagemin": "5.2.2",
+    "imagemin-pngquant": "5.0.0"
+  }
+}
