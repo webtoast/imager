@@ -9,14 +9,15 @@ import { greet } from './hello_world/hello_world'; // code authored by you in th
 import env from './env';
 import Optimizer from './modules/optimizer';
 
-console.log('Loaded environment variables:', env);
+// TODO: read up on env
+// console.log('Loaded environment variables:', env);
 
 var app = remote.app;
 var appDir = jetpack.cwd(app.getAppPath());
 
-// Holy crap! This is browser window with HTML and stuff, but I can read
-// here files like it is node.js! Welcome to Electron world :)
-console.log('The author of this app is:', appDir.read('package.json', 'json').author);
+// This is the browser window with HTML and stuff, but you can read
+// files like it is node.js!
+// console.log('The author of this app is:', appDir.read('package.json', 'json').author);
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('greet').innerHTML = greet();
@@ -28,6 +29,5 @@ document.ondragover = document.ondrop = (ev) => {
 
 document.ondrop = (ev) => {
     ev.preventDefault();
-    console.log('Files Dropped!!');
     let FileReportView = new Optimizer(ev);
 }

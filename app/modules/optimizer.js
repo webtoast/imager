@@ -5,8 +5,16 @@ export default class Optimizer {
     constructor(e) {
         this.fileList = e.dataTransfer.files;
         this.savePath = new String();
-        this.arrayofFiles = new Array();
-        this.saveFolder = '/OPTIMIZED/';
+        // this.arrayofFiles = new Array();
+        this.saveFolder = '/_OPTIMIZED/';
+
+        // convert object to an array
+        this.filesListArray = Array.prototype.slice.call(this.fileList);
+        this.filesArray = [];
+
+        for (var file in this.filesListArray) {
+            this.filesArray[file] = this.filesListArray[file].path;
+        }
 
         // kick off the fun
         this.init();
@@ -16,15 +24,10 @@ export default class Optimizer {
 
         // just grab the fist element in the array
         // to determine the path to save to
-        this.getSavePath(this.fileList[0].path);
-        this.getFilesArray(this.fileList[0].path);
+        this.getSavePath(this.filesArray[0]);
+        // this.getFilesArray(this.fileList[0].path);
 
-        console.log(this.fileList);
-
-        for (let item of this.fileList) {
-            console.log(item);
-        }
-
+        // determining whether its a folder or files
         //console.log(this.fileList[0].path.indexOf('.'));
 
         this.optimizeImages();
@@ -40,9 +43,9 @@ export default class Optimizer {
         this.pathArray.pop();
         tempPath = this.pathArray.join('/');
         this.savePath = tempPath + this.saveFolder;
-        console.log("The path to save to = " + this.savePath);
     }
 
+    // not being used right now
     getFilesArray(fullPath) {
         var tempStr = new String();
         var i = new Number(0);
@@ -50,6 +53,7 @@ export default class Optimizer {
         for (let f of this.fileList) {
             this.arrayofFiles.push(f.path);
         }
+        // IF THE FULLPATH IS A FOLDER
         if (fullPath.indexOf('.') === -1) {
             // update to use a globbing pattern
             tempStr = this.arrayofFiles[0];
@@ -57,11 +61,11 @@ export default class Optimizer {
             // update the savePath variable to organize them in the same folder structure
         }
 
-        console.log(this.arrayofFiles);
+        // console.log(this.arrayofFiles);
     }
 
     optimizeImages() {
-        imagemin(`/Users/brad/Desktop/mss/fuel/images/**/*.{jpg,png}`, this.savePath, {
+        imagemin(this.filesArray, this.savePath, {
             plugins: [
                 imageminPngquant({quality: '65-80'})
             ]
