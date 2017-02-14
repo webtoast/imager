@@ -7,7 +7,7 @@ import { remote } from 'electron'; // native electron module
 import jetpack from 'fs-jetpack'; // module loaded from npm
 import { greet } from './hello_world/hello_world'; // code authored by you in this project
 import env from './env';
-import Optimizer from './modules/optimizer';
+import Files from './modules/files';
 
 // TODO: read up on env
 // console.log('Loaded environment variables:', env);
@@ -29,5 +29,5 @@ document.ondragover = document.ondrop = (ev) => {
 
 document.ondrop = (ev) => {
     ev.preventDefault();
-    let FileReportView = new Optimizer(ev);
+    let FileReportView = new Files(ev);
 }
