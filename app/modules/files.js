@@ -24,14 +24,8 @@ export default class Files {
         // to determine the path to save to
         this.getSavePath(this.filesArray[0]);
 
-        // determining whether its a folder or files
-        //console.log(this.fileList[0].path.indexOf('.'));
-
-        // this.optimizeImages();
         var optimizer = new Optimizer(this.filesArray, this.savePath);
 
-        //console.log(this.fileList);
-        // console.log(new Array());
     }
 
     getSavePath(fullPath) {
