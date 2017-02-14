@@ -1,4 +1,6 @@
 Chef
 ----
 
-Drag and drop image optimization for OS X.
+Electron app for image optimization on OS X.
+
+* Requires `libpng` to be installed, `brew install libpng`, to optimize jpg files
