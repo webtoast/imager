@@ -4,6 +4,7 @@ export default class Files {
 
     constructor(e) {
         // convert object to an array
+        // http://xahlee.info/js/js_convert_array-like.html
         this.fileList = Array.prototype.slice.call(e.dataTransfer.files);
         this.savePath = '';
         this.saveFolder = '/_OPTIMIZED/';
@@ -23,9 +24,11 @@ export default class Files {
         // to determine the path to save to
         this.getSavePath(this.pathsArray[0]);
 
+        // pass over what we have to get optimized
         var optimizer = new Optimizer(this.pathsArray, this.savePath);
     }
 
+    // TODO: better way to do this?
     getSavePath(fullPath) {
         var tempPath = '';
         this.pathArray = fullPath.split('/');
