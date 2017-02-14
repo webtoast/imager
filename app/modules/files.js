@@ -4,7 +4,7 @@ export default class Files {
     constructor(e) {
         // convert object to an array
         this.fileList = Array.prototype.slice.call(e.dataTransfer.files);
-        this.savePath = new String();
+        this.savePath = '';
         this.saveFolder = '/_OPTIMIZED/';
 
         this.filesArray = [];
@@ -28,7 +28,7 @@ export default class Files {
     }
 
     getSavePath(fullPath) {
-        var tempPath = new String();
+        var tempPath = '';
         this.pathArray = fullPath.split('/');
         //remove the last element which is the file
         this.pathArray.pop();
