@@ -4,7 +4,6 @@ export default class Files {
     constructor(e) {
         this.fileList = e.dataTransfer.files;
         this.savePath = new String();
-        // this.arrayofFiles = new Array();
         this.saveFolder = '/_OPTIMIZED/';
 
         // convert object to an array
@@ -24,7 +23,6 @@ export default class Files {
         // just grab the fist element in the array
         // to determine the path to save to
         this.getSavePath(this.filesArray[0]);
-        // this.getFilesArray(this.fileList[0].path);
 
         // determining whether its a folder or files
         //console.log(this.fileList[0].path.indexOf('.'));
@@ -43,25 +41,6 @@ export default class Files {
         this.pathArray.pop();
         tempPath = this.pathArray.join('/');
         this.savePath = tempPath + this.saveFolder;
-    }
-
-    // not being used right now
-    getFilesArray(fullPath) {
-        var tempStr = new String();
-        var i = new Number(0);
-
-        for (let f of this.fileList) {
-            this.arrayofFiles.push(f.path);
-        }
-        // IF THE FULLPATH IS A FOLDER
-        if (fullPath.indexOf('.') === -1) {
-            // update to use a globbing pattern
-            tempStr = this.arrayofFiles[0];
-            this.arrayofFiles[0] = tempStr + '/**/*.{jpg,png}';
-            // update the savePath variable to organize them in the same folder structure
-        }
-
-        // console.log(this.arrayofFiles);
     }
 
 }
