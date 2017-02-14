@@ -1,5 +1,6 @@
 import imagemin from 'imagemin';
 import imageminPngquant from 'imagemin-pngquant';
+import imageminMozjpeg from 'imagemin-mozjpeg';
 
 export default class Optimizer {
     constructor(e) {
@@ -67,7 +68,8 @@ export default class Optimizer {
     optimizeImages() {
         imagemin(this.filesArray, this.savePath, {
             plugins: [
-                imageminPngquant({quality: '65-80'})
+                imageminPngquant({quality: '65-80'}),
+                imageminMozjpeg()
             ]
         }).then(files => {
             //console.log(files);
