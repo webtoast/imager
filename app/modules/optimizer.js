@@ -4,6 +4,9 @@ import imageminMozjpeg from 'imagemin-mozjpeg';
 
 export default class Optimizer {
 
+    constructor(filesArray, savePath) {
+        this.filesArray = filesArray;
+        this.savePath = savePath;
         this.optimizeImages();
     }
 
