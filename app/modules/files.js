@@ -2,16 +2,15 @@ import Optimizer from './optimizer';
 
 export default class Files {
     constructor(e) {
-        this.fileList = e.dataTransfer.files;
+        // convert object to an array
+        this.fileList = Array.prototype.slice.call(e.dataTransfer.files);
         this.savePath = new String();
         this.saveFolder = '/_OPTIMIZED/';
 
-        // convert object to an array
-        this.filesListArray = Array.prototype.slice.call(this.fileList);
         this.filesArray = [];
 
-        for (var file in this.filesListArray) {
-            this.filesArray[file] = this.filesListArray[file].path;
+        for (var file in this.fileList) {
+            this.filesArray[file] = this.fileList[file].path;
         }
 
         // kick off the fun
