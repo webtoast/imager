@@ -7,22 +7,23 @@ export default class Files {
         this.fileList = Array.prototype.slice.call(e.dataTransfer.files);
         this.savePath = '';
         this.saveFolder = '/_OPTIMIZED/';
-        this.filesArray = [];
-
-        for (var file in this.fileList) {
-            this.filesArray[file] = this.fileList[file].path;
-        }
+        this.pathsArray = [];
 
         // kick off the fun
         this.init();
     }
 
     init() {
+        // fill the pathsArray with paths
+        for (var file in this.fileList) {
+            this.pathsArray[file] = this.fileList[file].path;
+        }
+
         // just grab the fist element in the array
         // to determine the path to save to
-        this.getSavePath(this.filesArray[0]);
+        this.getSavePath(this.pathsArray[0]);
 
-        var optimizer = new Optimizer(this.filesArray, this.savePath);
+        var optimizer = new Optimizer(this.pathsArray, this.savePath);
     }
 
     getSavePath(fullPath) {
