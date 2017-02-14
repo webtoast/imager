@@ -1,12 +1,12 @@
 import Optimizer from './optimizer';
 
 export default class Files {
+
     constructor(e) {
         // convert object to an array
         this.fileList = Array.prototype.slice.call(e.dataTransfer.files);
         this.savePath = '';
         this.saveFolder = '/_OPTIMIZED/';
-
         this.filesArray = [];
 
         for (var file in this.fileList) {
@@ -18,13 +18,11 @@ export default class Files {
     }
 
     init() {
-
         // just grab the fist element in the array
         // to determine the path to save to
         this.getSavePath(this.filesArray[0]);
 
         var optimizer = new Optimizer(this.filesArray, this.savePath);
-
     }
 
     getSavePath(fullPath) {
