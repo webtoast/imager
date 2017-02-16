@@ -4,20 +4,24 @@ import imageminMozjpeg from 'imagemin-mozjpeg';
 
 export default class Optimizer {
 
-    constructor(filesArray, savePath) {
+    constructor(filesArray) {
         this.filesArray = filesArray;
-        this.savePath = savePath;
+
         this.optimizeImages();
     }
 
+    // name:    optimizeImages
+    // params:  none
+    // processes the images for each object in the array
     optimizeImages() {
-        imagemin(this.filesArray, this.savePath, {
-            plugins: [
-                imageminPngquant({quality: '65-80'}),
-                imageminMozjpeg()
-            ]
-        }).then(files => {
-            //console.log(files);
-        });
+        Promise.all(this.filesArray.map(function(src) {
+            return imagemin(src.src, src.dest, {
+                plugins: [
+                    imageminPngquant(),
+                    imageminMozjpeg()
+                ]
+            })
+        }));
+
     }
 };

@@ -1,4 +1,5 @@
 import Optimizer from './optimizer';
+import fs from 'fs';
 
 export default class Files {
 
@@ -6,9 +7,9 @@ export default class Files {
         // convert object to an array
         // http://xahlee.info/js/js_convert_array-like.html
         this.fileList = Array.prototype.slice.call(e.dataTransfer.files);
-        this.savePath = '';
         this.saveFolder = '/_OPTIMIZED/';
         this.pathsArray = [];
+        this.filesToOptimize = [];
 
         // kick off the fun
         this.init();
@@ -20,22 +21,37 @@ export default class Files {
             this.pathsArray[file] = this.fileList[file].path;
         }
 
-        // just grab the fist element in the array
-        // to determine the path to save to
-        this.getSavePath(this.pathsArray[0]);
+        for (var path in this.pathsArray) {
 
-        // pass over what we have to get optimized
-        var optimizer = new Optimizer(this.pathsArray, this.savePath);
+            if (fs.lstatSync(this.pathsArray[path]).isDirectory()) {
+                this.buildFolderObject(this.pathsArray[path]);
+            } else {
+                console.log('FILE - ' + this.pathsArray[path]);
+                // TODO: error if it is a file
+            }
+        }
+
+        // pass our array of objects to get optimized
+        var optimizer = new Optimizer(this.filesToOptimize);
     }
 
-    // TODO: better way to do this?
-    getSavePath(fullPath) {
-        var tempPath = '';
-        this.pathArray = fullPath.split('/');
-        //remove the last element which is the file
-        this.pathArray.pop();
-        tempPath = this.pathArray.join('/');
-        this.savePath = tempPath + this.saveFolder;
+    buildFolderObject(folderPath) {
+        // the expected format for passing into optimizer
+        // [
+        //     {
+        //         dest: '/path/to/another/image-folder/_OPTIMIZED',
+        //         src: [
+        //             '/path/to/another/image-folder/**/*'
+        //         ]
+        //     }
+        // ];
+        var obj = {
+            dest: folderPath + '/_OPTIMIZED',
+            src: [
+                folderPath + '/**/*'
+            ]
+        }
+        this.filesToOptimize.push(obj);
     }
 
 }
