@@ -10,7 +10,6 @@ export default class Files {
         this.saveFolder = '/_OPTIMIZED/';
         this.pathsArray = [];
         this.filesToOptimize = [];
-        this.allFolders;
 
         // kick off the fun
         this.init();
@@ -22,11 +21,7 @@ export default class Files {
             this.pathsArray[file] = this.fileList[file].path;
         }
 
-        this.checkForFiles();
-
-        console.log(this.allFolders);
-
-        if(this.allFolders) {
+        if(this.checkAllFolders()) {
           this.buildFolderObjects();
 
           // pass our array of objects to get optimized
@@ -38,11 +33,11 @@ export default class Files {
 
     }
 
-    // name:    checkForFiles
+    // name:    checkAllFolders
     // params:  none
-    // sets allFolders true/false if every path is a folder
-    checkForFiles() {
-      this.allFolders = this.pathsArray.every((path) => {
+    // if any path is a file, return false
+    checkAllFolders() {
+      return this.pathsArray.every((path) => {
         return fs.lstatSync(path).isDirectory();
       })
     }
