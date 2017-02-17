@@ -25,10 +25,18 @@ export default class Files {
         this.checkForFiles();
 
         console.log(this.allFolders);
+
+        if(this.allFolders) {
+          this.buildFolderObject();
+
+          // pass our array of objects to get optimized
+          var optimizer = new Optimizer(this.filesToOptimize);
+
+        } else {
+          console.log('THROW AN ERROR');
         }
 
-        // pass our array of objects to get optimized
-        var optimizer = new Optimizer(this.filesToOptimize);
+    }
 
     // name:    checkForFiles
     // params:  none
