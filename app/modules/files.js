@@ -47,23 +47,18 @@ export default class Files {
       })
     }
 
-    buildFolderObject(folderPath) {
-        // the expected format for passing into optimizer
-        // [
-        //     {
-        //         dest: '/path/to/another/image-folder/_OPTIMIZED',
-        //         src: [
-        //             '/path/to/another/image-folder/**/*'
-        //         ]
-        //     }
-        // ];
-        var obj = {
-            dest: folderPath + '/_OPTIMIZED',
-            src: [
-                folderPath + '/**/*'
-            ]
-        }
-        this.filesToOptimize.push(obj);
+    buildFolderObject() {
+        this.filesToOptimize = this.pathsArray.map(path => {
+            var obj = {
+                dest: path + '/_OPTIMIZED',
+                src: [
+                    path + '/**/*'
+                ]
+            }
+
+            return obj;
+        })
+
     }
 
 }
