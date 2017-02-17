@@ -17,7 +17,7 @@ export default class Files {
     }
 
     init() {
-        // fill the pathsArray with paths
+        // extract the path from each object
         for (var file in this.fileList) {
             this.pathsArray[file] = this.fileList[file].path;
         }
