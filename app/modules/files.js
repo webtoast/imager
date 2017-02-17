@@ -27,7 +27,7 @@ export default class Files {
         console.log(this.allFolders);
 
         if(this.allFolders) {
-          this.buildFolderObject();
+          this.buildFolderObjects();
 
           // pass our array of objects to get optimized
           var optimizer = new Optimizer(this.filesToOptimize);
@@ -47,7 +47,10 @@ export default class Files {
       })
     }
 
-    buildFolderObject() {
+    // name:    buildFolderObjects
+    // params:  none
+    // builds the array of folder objects that go to Optimizer
+    buildFolderObjects() {
         this.filesToOptimize = this.pathsArray.map(path => {
             var obj = {
                 dest: path + '/_OPTIMIZED',
