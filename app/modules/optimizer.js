@@ -4,8 +4,8 @@ import imageminMozjpeg from 'imagemin-mozjpeg';
 
 export default class Optimizer {
 
-    constructor(filesArray) {
-        this.filesArray = filesArray;
+    constructor(filesToOptimize) {
+        this.filesToOptimize = filesToOptimize;
 
         this.optimizeImages();
     }
@@ -14,7 +14,7 @@ export default class Optimizer {
     // params:  none
     // processes the images for each object in the array
     optimizeImages() {
-        Promise.all(this.filesArray.map(function(src) {
+        Promise.all(this.filesToOptimize.map(function(src) {
             return imagemin(src.src, src.dest, {
                 plugins: [
                     imageminPngquant(),

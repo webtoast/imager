@@ -16,42 +16,47 @@ export default class Files {
     }
 
     init() {
-        // fill the pathsArray with paths
+        // extract the path from each object
         for (var file in this.fileList) {
             this.pathsArray[file] = this.fileList[file].path;
         }
 
-        for (var path in this.pathsArray) {
+        if(this.checkAllFolders()) {
+          this.buildFolderObjects();
 
-            if (fs.lstatSync(this.pathsArray[path]).isDirectory()) {
-                this.buildFolderObject(this.pathsArray[path]);
-            } else {
-                console.log('FILE - ' + this.pathsArray[path]);
-                // TODO: error if it is a file
-            }
+          // pass our array of objects to get optimized
+          var optimizer = new Optimizer(this.filesToOptimize);
+
+        } else {
+          console.log('THROW AN ERROR');
         }
 
-        // pass our array of objects to get optimized
-        var optimizer = new Optimizer(this.filesToOptimize);
     }
 
-    buildFolderObject(folderPath) {
-        // the expected format for passing into optimizer
-        // [
-        //     {
-        //         dest: '/path/to/another/image-folder/_OPTIMIZED',
-        //         src: [
-        //             '/path/to/another/image-folder/**/*'
-        //         ]
-        //     }
-        // ];
-        var obj = {
-            dest: folderPath + '/_OPTIMIZED',
-            src: [
-                folderPath + '/**/*'
-            ]
-        }
-        this.filesToOptimize.push(obj);
+    // name:    checkAllFolders
+    // params:  none
+    // if any path is a file, return false
+    checkAllFolders() {
+      return this.pathsArray.every((path) => {
+        return fs.lstatSync(path).isDirectory();
+      })
+    }
+
+    // name:    buildFolderObjects
+    // params:  none
+    // builds the array of folder objects that go to Optimizer
+    buildFolderObjects() {
+        this.filesToOptimize = this.pathsArray.map(path => {
+            var obj = {
+                dest: path + '/_OPTIMIZED',
+                src: [
+                    path + '/**/*'
+                ]
+            }
+
+            return obj;
+        })
+
     }
 
 }
