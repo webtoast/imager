@@ -65,21 +65,16 @@ export default class Files {
         return fs.lstatSync(path).isDirectory();
     }
 
-    // name:    buildFolderObjects
-    // params:  none
-    // builds the array of folder objects that go to Optimizer
-    buildFolderObjects() {
-        this.filesToOptimize = this.pathsArray.map(path => {
-            var obj = {
-                dest: path + '/_OPTIMIZED',
-                src: [
-                    path + '/**/*'
-                ]
-            }
+    // name:    buildObjects
+    // params:  srcPaths: array, outputDir: string
+    // builds a config object and pushes into array
+    buildObjects(srcPaths, outputDir) {
+       var obj = {
+          dest: outputDir + '/_OPTIMIZED',
+          src: srcPaths
+       }
 
-            return obj;
-        })
-
+       this.filesToOptimize.push(obj);
     }
 
 }
