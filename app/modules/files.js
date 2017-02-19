@@ -9,6 +9,7 @@ export default class Files {
         this.fileList = Array.prototype.slice.call(e.dataTransfer.files);
         this.saveFolder = '/_OPTIMIZED/';
         this.pathsArray = [];
+        this.folders = [];
         this.filesToOptimize = [];
 
         // kick off the fun
@@ -21,8 +22,10 @@ export default class Files {
             this.pathsArray[file] = this.fileList[file].path;
         }
 
-        if(this.checkAllFolders()) {
-          this.buildFolderObjects();
+        // build the unique folder array
+        this.folders = [...new Set(this.pathsArray.map((path) => {
+            return this.removeFileFromPath(path)
+        }))];
 
           // pass our array of objects to get optimized
           var optimizer = new Optimizer(this.filesToOptimize);
