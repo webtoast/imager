@@ -1,11 +1,11 @@
 {
-  "name": "chef",
-  "productName": "Chef",
+  "name": "imager",
+  "productName": "Imager",
   "description": "Image optimization tool",
   "version": "0.0.0",
   "author": "",
   "copyright": "",
-  "homepage": "https://github.com/webtoast/chef",
+  "homepage": "https://github.com/webtoast/imager",
   "license": "",
   "main": "background.js",
   "dependencies": {
