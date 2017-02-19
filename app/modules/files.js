@@ -27,13 +27,42 @@ export default class Files {
             return this.removeFileFromPath(path)
         }))];
 
-          // pass our array of objects to get optimized
-          var optimizer = new Optimizer(this.filesToOptimize);
+        this.groupFolderPaths();
 
-        } else {
-          console.log('THROW AN ERROR');
+        var optimizer = new Optimizer(this.filesToOptimize);
+
+    }
+
+    // name:    groupFolderPaths
+    // params:  none
+    // loops through the paths array comparing each element
+    // to a unique folder in the folders array
+    // groups similar src destinations and passes to buildObjects
+    // to build the config for each src/output combo
+    groupFolderPaths() {
+        for (var i = 0; i < this.folders.length; i++) {
+           var src = [];
+           var uniqueCompare = this.comparePath(this.folders[i]);
+
+           for (var j = 0; j < this.pathsArray.length; j++) {
+
+              if(uniqueCompare(this.pathsArray[j])) {
+                 // if the path is a folder
+                 if(this.checkIfFolder(this.pathsArray[j])) {
+                    // add a glob to get all images
+                    src.push(this.pathsArray[j] + '/**/*')
+                } else {
+                    // otherwise just push the path
+                    src.push(this.pathsArray[j]);
+                }
+
+              }
+
+           }
+
+           this.buildObjects(src, this.folders[i]);
+
         }
-
     }
 
     // name:    comparePath
