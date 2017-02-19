@@ -9,6 +9,7 @@ export default class Files {
         this.fileList = Array.prototype.slice.call(e.dataTransfer.files);
         this.saveFolder = '/_OPTIMIZED/';
         this.pathsArray = [];
+        this.folders = [];
         this.filesToOptimize = [];
 
         // kick off the fun
@@ -21,42 +22,88 @@ export default class Files {
             this.pathsArray[file] = this.fileList[file].path;
         }
 
-        if(this.checkAllFolders()) {
-          this.buildFolderObjects();
+        // build the unique folder array
+        this.folders = [...new Set(this.pathsArray.map((path) => {
+            return this.removeFileFromPath(path)
+        }))];
 
-          // pass our array of objects to get optimized
-          var optimizer = new Optimizer(this.filesToOptimize);
+        this.groupFolderPaths();
 
-        } else {
-          console.log('THROW AN ERROR');
-        }
+        var optimizer = new Optimizer(this.filesToOptimize);
 
     }
 
-    // name:    checkAllFolders
+    // name:    groupFolderPaths
+    // params:  none
+    // loops through the paths array comparing each element
+    // to a unique folder in the folders array
+    // groups similar src destinations and passes to buildObjects
+    // to build the config for each src/output combo
+    groupFolderPaths() {
+        for (var i = 0; i < this.folders.length; i++) {
+           var src = [];
+           var uniqueCompare = this.comparePath(this.folders[i]);
+
+           for (var j = 0; j < this.pathsArray.length; j++) {
+
+              if(uniqueCompare(this.pathsArray[j])) {
+                 // if the path is a folder
+                 if(this.checkIfFolder(this.pathsArray[j])) {
+                    // add a glob to get all images
+                    src.push(this.pathsArray[j] + '/**/*')
+                } else {
+                    // otherwise just push the path
+                    src.push(this.pathsArray[j]);
+                }
+
+              }
+
+           }
+
+           this.buildObjects(src, this.folders[i]);
+
+        }
+    }
+
+    // name:    comparePath
+    // params:  string: string
+    // returns a function that accepts another string
+    comparePath(string) {
+        return (stringToCompare) => string == this.removeFileFromPath(stringToCompare);
+    }
+
+    // name:    removeFileFromPath
+    // params:  file path: string
+    // returns a file path string without the file name or
+    // returns the file path if it is a folder
+    removeFileFromPath(path) {
+       // only pop off the file name if there is one
+       if(!this.checkIfFolder(path)) {
+          var splitPath = path.split('/');
+          splitPath.pop();
+          path = splitPath.join('/');
+       }
+
+       return path;
+    }
+
+    // name:    checkIfFolder
     // params:  none
     // if any path is a file, return false
-    checkAllFolders() {
-      return this.pathsArray.every((path) => {
+    checkIfFolder(path) {
         return fs.lstatSync(path).isDirectory();
-      })
     }
 
-    // name:    buildFolderObjects
-    // params:  none
-    // builds the array of folder objects that go to Optimizer
-    buildFolderObjects() {
-        this.filesToOptimize = this.pathsArray.map(path => {
-            var obj = {
-                dest: path + '/_OPTIMIZED',
-                src: [
-                    path + '/**/*'
-                ]
-            }
+    // name:    buildObjects
+    // params:  srcPaths: array, outputDir: string
+    // builds a config object and pushes into array
+    buildObjects(srcPaths, outputDir) {
+       var obj = {
+          dest: outputDir + '/_OPTIMIZED',
+          src: srcPaths
+       }
 
-            return obj;
-        })
-
+       this.filesToOptimize.push(obj);
     }
 
 }
