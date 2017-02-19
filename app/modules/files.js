@@ -33,6 +33,12 @@ export default class Files {
 
     }
 
+    // name:    comparePath
+    // params:  string: string
+    // returns a function that accepts another string
+    comparePath(string) {
+        return (stringToCompare) => string == this.removeFileFromPath(stringToCompare);
+    }
     // name:    checkAllFolders
     // params:  none
     // if any path is a file, return false
