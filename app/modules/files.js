@@ -39,6 +39,22 @@ export default class Files {
     comparePath(string) {
         return (stringToCompare) => string == this.removeFileFromPath(stringToCompare);
     }
+
+    // name:    removeFileFromPath
+    // params:  file path: string
+    // returns a file path string without the file name or
+    // returns the file path if it is a folder
+    removeFileFromPath(path) {
+       // only pop off the file name if there is one
+       if(!this.checkIfFolder(path)) {
+          var splitPath = path.split('/');
+          splitPath.pop();
+          path = splitPath.join('/');
+       }
+
+       return path;
+    }
+
     // name:    checkAllFolders
     // params:  none
     // if any path is a file, return false
