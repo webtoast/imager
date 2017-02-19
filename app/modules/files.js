@@ -55,13 +55,11 @@ export default class Files {
        return path;
     }
 
-    // name:    checkAllFolders
+    // name:    checkIfFolder
     // params:  none
     // if any path is a file, return false
-    checkAllFolders() {
-      return this.pathsArray.every((path) => {
+    checkIfFolder(path) {
         return fs.lstatSync(path).isDirectory();
-      })
     }
 
     // name:    buildFolderObjects
