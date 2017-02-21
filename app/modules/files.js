@@ -4,23 +4,21 @@ import fs from 'fs';
 export default class Files {
 
     constructor(e) {
-        // convert object to an array
-        // http://xahlee.info/js/js_convert_array-like.html
-        this.fileList = Array.prototype.slice.call(e.dataTransfer.files);
+        this.filesList = e.dataTransfer.files;
         this.saveFolder = '/_OPTIMIZED/';
         this.pathsArray = [];
         this.folders = [];
-        this.filesToOptimize = [];
+        this.optimizeConfig = [];
 
         // kick off the fun
         this.init();
     }
 
     init() {
-        // extract the path from each object
-        for (var file in this.fileList) {
-            this.pathsArray[file] = this.fileList[file].path;
-        }
+        // extract the path from each object and push into array
+        Object.keys(this.filesList).forEach((key) => {
+            this.pathsArray.push(this.filesList[key].path);
+        });
 
         // build the unique folder array
         this.folders = [...new Set(this.pathsArray.map((path) => {
@@ -29,7 +27,7 @@ export default class Files {
 
         this.groupFolderPaths();
 
-        var optimizer = new Optimizer(this.filesToOptimize);
+        var optimizer = new Optimizer(this.optimizeConfig);
 
     }
 
@@ -103,7 +101,7 @@ export default class Files {
           src: srcPaths
        }
 
-       this.filesToOptimize.push(obj);
+       this.optimizeConfig.push(obj);
     }
 
 }
