@@ -8,7 +8,7 @@ export default class Files {
         this.saveFolder = '/_OPTIMIZED/';
         this.pathsArray = [];
         this.folders = [];
-        this.filesToOptimize = [];
+        this.optimizeConfig = [];
 
         // kick off the fun
         this.init();
@@ -27,7 +27,7 @@ export default class Files {
 
         this.groupFolderPaths();
 
-        var optimizer = new Optimizer(this.filesToOptimize);
+        var optimizer = new Optimizer(this.optimizeConfig);
 
     }
 
@@ -101,7 +101,7 @@ export default class Files {
           src: srcPaths
        }
 
-       this.filesToOptimize.push(obj);
+       this.optimizeConfig.push(obj);
     }
 
 }
