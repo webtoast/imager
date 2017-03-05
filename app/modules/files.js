@@ -1,4 +1,5 @@
 import Optimizer from './optimizer';
+import Spinner from './spinner';
 import fs from 'fs';
 
 export default class Files {
@@ -9,12 +10,15 @@ export default class Files {
         this.pathsArray = [];
         this.folders = [];
         this.optimizeConfig = [];
+        this.spinner = new Spinner;
 
         // kick off the fun
         this.init();
     }
 
     init() {
+        this.spinner.toggle();
+
         // extract the path from each object and push into array
         Object.keys(this.filesList).forEach((key) => {
             this.pathsArray.push(this.filesList[key].path);

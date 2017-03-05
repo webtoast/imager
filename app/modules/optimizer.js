@@ -1,11 +1,13 @@
 import imagemin from 'imagemin';
 import imageminPngquant from 'imagemin-pngquant';
 import imageminMozjpeg from 'imagemin-mozjpeg';
+import Spinner from './spinner';
 
 export default class Optimizer {
 
     constructor(optimizeConfig) {
         this.optimizeConfig = optimizeConfig;
+        this.spinner = new Spinner;
 
         this.optimizeImages();
     }
@@ -21,7 +23,7 @@ export default class Optimizer {
                     imageminMozjpeg()
                 ]
             })
-        }));
+        })).then((files) => this.spinner.toggle());
 
     }
 };
