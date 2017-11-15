@@ -1,3 +1,4 @@
+import isFolder from './isFolder';
 import Optimizer from './optimizer';
 import Spinner from './spinner';
 import fs from 'fs';
@@ -50,7 +51,7 @@ export default class Files {
 
               if(uniqueCompare(this.pathsArray[j])) {
                  // if the path is a folder
-                 if(this.checkIfFolder(this.pathsArray[j])) {
+                 if(isFolder(this.pathsArray[j])) {
                     // add a glob to get all images
                     src.push(this.pathsArray[j] + '/**/*')
                 } else {
@@ -80,20 +81,13 @@ export default class Files {
     // returns the file path if it is a folder
     removeFileFromPath(path) {
        // only pop off the file name if there is one
-       if(!this.checkIfFolder(path)) {
+       if(!isFolder(path)) {
           var splitPath = path.split('/');
           splitPath.pop();
           path = splitPath.join('/');
        }
 
        return path;
-    }
-
-    // name:    checkIfFolder
-    // params:  none
-    // if any path is a file, return false
-    checkIfFolder(path) {
-        return fs.lstatSync(path).isDirectory();
     }
 
     // name:    buildObjects
