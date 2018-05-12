@@ -28,6 +28,7 @@ export default class Optimizer {
         })).then((files) => {
           this.loader.done();
           this.results.toggle();
+          this.results.writeResults(files);
         });
 
     }
