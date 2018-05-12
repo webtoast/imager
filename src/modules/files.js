@@ -3,6 +3,7 @@ import Optimizer from './optimizer';
 import Spinner from './spinner';
 import fs from 'fs';
 import stripFilename from './stripFilename';
+import compareStrings from './compareStrings';
 
 export default class Files {
 
@@ -46,7 +47,7 @@ export default class Files {
     groupFolderPaths() {
         for (var i = 0; i < this.folders.length; i++) {
            var src = [];
-           var uniqueCompare = this.comparePath(this.folders[i]);
+           var uniqueCompare = compareStrings(this.folders[i]);
 
            for (var j = 0; j < this.pathsArray.length; j++) {
 
@@ -67,13 +68,6 @@ export default class Files {
            this.buildObjects(src, this.folders[i]);
 
         }
-    }
-
-    // name:    comparePath
-    // params:  string: string
-    // returns a function that accepts another string
-    comparePath(string) {
-        return (stringToCompare) => string == stripFilename(stringToCompare);
     }
 
     // name:    buildObjects
