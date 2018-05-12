@@ -1,7 +1,6 @@
 import isFolder from './isFolder';
 import Optimizer from './optimizer';
 import Spinner from './spinner';
-import fs from 'fs';
 import stripFilename from './stripFilename';
 import compareStrings from './compareStrings';
 
