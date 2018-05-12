@@ -2,6 +2,7 @@ import isFolder from './isFolder';
 import Optimizer from './optimizer';
 import Spinner from './spinner';
 import fs from 'fs';
+import stripFilename from './stripFilename';
 
 export default class Files {
 
@@ -27,7 +28,7 @@ export default class Files {
 
         // build the unique folder array
         this.folders = [...new Set(this.pathsArray.map((path) => {
-            return this.removeFileFromPath(path)
+            return stripFilename(path)
         }))];
 
         this.groupFolderPaths();
@@ -72,22 +73,7 @@ export default class Files {
     // params:  string: string
     // returns a function that accepts another string
     comparePath(string) {
-        return (stringToCompare) => string == this.removeFileFromPath(stringToCompare);
-    }
-
-    // name:    removeFileFromPath
-    // params:  file path: string
-    // returns a file path string without the file name or
-    // returns the file path if it is a folder
-    removeFileFromPath(path) {
-       // only pop off the file name if there is one
-       if(!isFolder(path)) {
-          var splitPath = path.split('/');
-          splitPath.pop();
-          path = splitPath.join('/');
-       }
-
-       return path;
+        return (stringToCompare) => string == stripFilename(stringToCompare);
     }
 
     // name:    buildObjects
