@@ -4,6 +4,7 @@ export default class Loader {
     }
 
     init() {
+        this.el = document.querySelector('.loader');
         this.spinner = document.querySelector('.spinner');
         this.instructions = document.querySelector('.instructions');
     }
@@ -18,7 +19,7 @@ export default class Loader {
     }
 
     toggle() {
-        this.spinner.classList.toggle('hidden');
+        this.el.classList.toggle('active');
     }
 
     hideInstructions() {
