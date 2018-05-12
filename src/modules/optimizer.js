@@ -2,12 +2,14 @@ import imagemin from 'imagemin';
 import imageminPngquant from 'imagemin-pngquant';
 import imageminMozjpeg from 'imagemin-mozjpeg';
 import Loader from './loader';
+import Results from './results';
 
 export default class Optimizer {
 
     constructor(optimizeConfig) {
         this.optimizeConfig = optimizeConfig;
         this.loader = new Loader;
+        this.results = new Results;
 
         this.optimizeImages();
     }
@@ -23,7 +25,10 @@ export default class Optimizer {
                     imageminMozjpeg()
                 ]
             })
-        })).then((files) => this.loader.done());
+        })).then((files) => {
+          this.loader.done();
+          this.results.toggle();
+        });
 
     }
 };
