@@ -1,6 +1,6 @@
 import isFolder from './isFolder';
 import Optimizer from './optimizer';
-import Spinner from './spinner';
+import Loader from './loader';
 import stripFilename from './stripFilename';
 import compareStrings from './compareStrings';
 
@@ -12,14 +12,14 @@ export default class Files {
         this.pathsArray = [];
         this.folders = [];
         this.optimizeConfig = [];
-        this.spinner = new Spinner;
+        this.loader = new Loader;
 
         // kick off the fun
         this.init();
     }
 
     init() {
-        this.spinner.toggle();
+        this.loader.working();
 
         // extract the path from each object and push into array
         Object.keys(this.filesList).forEach((key) => {
