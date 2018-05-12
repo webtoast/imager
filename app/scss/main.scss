@@ -1,4 +1,5 @@
 @import '_spinner.scss';
+@import '_results.scss';
 
 html, body {
     width: 100%;
@@ -9,9 +10,6 @@ html, body {
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-family: sans-serif;
 }
 

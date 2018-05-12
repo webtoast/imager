@@ -1,0 +1,20 @@
+.results {
+  display: flex;
+  flex-direction: column;
+}
+
+.result__item {
+  display: flex;
+}
+
+.result__name {
+  flex: 4;
+}
+
+.result__dimensions {
+  flex: 1;
+}
+
+.result__size {
+  flex: 1;
+}
