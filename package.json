@@ -49,6 +49,7 @@
     "friendly-errors-webpack-plugin": "^1.6.1",
     "mocha": "^4.0.1",
     "node-sass": "4.8.3",
+    "pretty-bytes": "5.1.0",
     "sass-loader": "6.0.7",
     "source-map-support": "^0.5.0",
     "spectron": "^3.7.2",
